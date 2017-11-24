@@ -1,0 +1,5 @@
+configuration:
+	core.meta.title: [description: "Titulek dokumentu (stránky)"]
+	core.meta.description: [description: "Stručný popis stránek"]
+	core.meta.keywords: [description: "Klíčová slova oddělená čárkami"]
+	core.meta.author: [default: "Grape SC, a.s.", description: "Autor prezentace"]

@@ -1,0 +1,14 @@
+<span class="b-700 f-16" n:if="$show && $links">
+	<i>
+		{foreach $links as $link}
+			{if is_array($link['link']) || (strpos($link['link'], 'http') === false && strpos($link['link'], ':'))}
+				<a href="{plink $link['link'][0], (expand) isset($link['link'][1]) ? $link['link'][1] : []}" n:class="!$iterator->isLast() ? text-black">{$link['title']}</a>
+			{elseif $link['link']}
+				<a href="{$link['link']}" n:class="!$iterator->isLast() ? text-black">{$link['title']}</a>
+			{else}
+				<a n:class="!$iterator->isLast() ? text-black">{$link['title']}</a>
+			{/if}
+			{sep}&nbsp;&nbsp;/&nbsp;&nbsp;{/sep}
+		{/foreach}
+	</i>
+</span>

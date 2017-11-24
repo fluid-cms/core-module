@@ -1,0 +1,60 @@
+parameters:
+	routing:
+		core:
+			- ['core/<presenter>[/<action>][/<id>]', 'Homepage:default']
+
+	controls: #bude lepsi pres extension
+		breadCrumb:
+			class: Grapesc\GrapeFluid\CoreModule\Control\BreadCrumb\BreadCrumbControlFactory
+			desc: 'Drobečková navigace'
+			list: true
+#			params:
+#				name: [string, Jméno / Identifikátor boxu]
+
+	translator:
+		locales:
+			- '%moduleDir%/CoreModule/config/Locale/cs.neon'
+
+
+services:
+	- Grapesc\GrapeFluid\CoreModule\Model\SettingModel
+	- Grapesc\GrapeFluid\CoreModule\Model\AclModel
+	- Grapesc\GrapeFluid\CoreModule\Service\BreadCrumbService
+	- Grapesc\GrapeFluid\Configuration\Storage(@Grapesc\GrapeFluid\CoreModule\Model\SettingModel)
+	- Grapesc\GrapeFluid\Configuration\Crypt\OpenSSLCrypt(%secret%)
+
+
+assets:
+	jquery:
+		limit:
+			- "*"
+			- ":Admin:.*"
+		js:
+			- 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'
+	fontawesome:
+		limit:
+			- "*"
+			- ":Admin:.*"
+		css:
+			- 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'
+	nette:
+		limit:
+			- "*"
+			- ":Admin:.*"
+		js:
+			- '%moduleDir%/CoreModule/assets/nette/nette.ajax.js'
+	moment:
+		limit:
+			- "*"
+			- ":Admin:.*"
+		js:
+			- 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'
+			- 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/cs.js'
+	main:
+		limit:
+			- "*"
+			- ":Admin:.*"
+		css:
+			- '%moduleDir%/CoreModule/assets/core.css'
+		js:
+			- '%moduleDir%/CoreModule/assets/core.js'
