@@ -30,6 +30,10 @@ class AssetsShowCommand extends Command
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		foreach ($this->assets->getFileList() as $limit => $files) {
+			if (empty($files)) {
+				continue;
+			}
+			$output->writeln("<info>Assets for limit $limit:</info>");
 			foreach ($files as $path => $desc) {
 				if ($input->getOption("c") === false && $desc['type'] == "copy") {
 					continue;
@@ -37,6 +41,7 @@ class AssetsShowCommand extends Command
 					$output->writeln("<info>" . str_replace(DIRECTORY_SEPARATOR, "/", str_replace($this->params->getParam("appDir"), "", $path)) . " - " . implode(", ", $desc) . "</info>");
 				}
 			}
+			$output->write("\n");
 		}
 	}
 
