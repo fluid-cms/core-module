@@ -27,7 +27,7 @@ class MigrationCreateCommand extends Command
 	{
 		$question = $this->getHelper('question');
 
-		$moduleQuestion = new Question('<question>Module name or [project] (use "-" for multi-word module name): [core]</question> ', "core");
+		$moduleQuestion = new Question('<question>Module name or [project] (use "-" as separator for multi-word module name): [core]</question> ', "core");
 		$moduleQuestion->setValidator(function($val) {
 			if ($val = $this->migrationService->createMigrationFile(ucfirst(strtolower($val)))) {
 				return $val;
