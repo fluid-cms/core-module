@@ -27,9 +27,9 @@ class MigrationCreateCommand extends Command
 	{
 		$question = $this->getHelper('question');
 
-		$moduleQuestion = new Question('<question>Module name or [project]: [core]</question> ', "core");
+		$moduleQuestion = new Question('<question>Module name or [project] (use "-" for multi-word module name): [core]</question> ', "core");
 		$moduleQuestion->setValidator(function($val) {
-			if ($this->migrationService->createMigrationFile(ucfirst(strtolower($val)))) {
+			if ($val = $this->migrationService->createMigrationFile(ucfirst(strtolower($val)))) {
 				return $val;
 			} else {
 				throw new RuntimeException("Module '$val' doesn't exists.");
@@ -37,7 +37,7 @@ class MigrationCreateCommand extends Command
 		});
 
 		$module = $question->ask($input, $output, $moduleQuestion);
-		$output->write("New migration file for " . ($module == "project" ? "project" : "module '" . $module . "'") . " successfully created!");
+		$output->write("New migration file for " . ($module == "Project" ? "project" : "module '" . $module . "'") . " successfully created!");
 	}
 
 }
