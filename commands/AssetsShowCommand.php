@@ -38,7 +38,7 @@ class AssetsShowCommand extends Command
 				if ($input->getOption("c") === false && $desc['type'] == "copy") {
 					continue;
 				} else {
-					$output->writeln("<info>" . str_replace(DIRECTORY_SEPARATOR, "/", str_replace($this->params->getParam("appDir"), "", $path)) . " - " . implode(", ", $desc) . "</info>");
+					$output->writeln("<info>" . str_replace(DIRECTORY_SEPARATOR, "/", str_replace($this->params->getParam("appDir"), "", $path)) . " - " . json_encode($desc) . "</info>");
 				}
 			}
 			$output->write("\n");
