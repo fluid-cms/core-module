@@ -62,8 +62,8 @@
 }
 
 /* Inline Edit Content */
-[contenteditable=true]:not(.panel-body),
-[contenteditable=false].hover {
+.note-editable-inline[contenteditable=true]:not(.panel-body),
+.note-editable-inline[contenteditable=false].hover {
     position: relative;
     margin: -10px;
     padding: 10px;
@@ -76,14 +76,14 @@
     transition: box-shadow .2s ease;
 }
 
-[contenteditable=true]:not(.panel-body) {
+.note-editable-inline[contenteditable=true]:not(.panel-body) {
     z-index: 1050;
     -webkit-box-shadow: 0 0 0 50000px rgba(0, 0, 0, .75);
     -moz-box-shadow: 0 0 0 50000px rgba(0, 0, 0, .75);
     box-shadow: 0 0 0 50000px rgba(0, 0, 0, .75);
 }
 
-[contenteditable=false].hover {
+.note-editable-inline[contenteditable=false].hover {
     -webkit-box-shadow: 0 0 20px 5px rgba(0, 173, 255, 0.75);
     -moz-box-shadow: 0 0 20px 5px rgba(0, 173, 255, 0.75);
     box-shadow: 0 0 20px 5px rgba(0, 173, 255, 0.75);
