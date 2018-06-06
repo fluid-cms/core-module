@@ -82,6 +82,7 @@
 .note-editable-inline[contenteditable=true]:not(.panel-body) {
     position: relative;
     margin: -10px;
+    top: -7px;
     padding: 10px;
 
     border-radius: 6px;
