@@ -14,7 +14,7 @@
   "require": {
     "php": ">= 5.6",
     "grape-fluid/composer-installer": "@dev",
-    "grape-fluid/grape-fluid": "@dev",
+    "grape-fluid/grape-fluid": "^0.6.0",
     "grape-fluid/bin": "dev-master"
   },
   "prefer-stable": true,
