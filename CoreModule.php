@@ -2,8 +2,7 @@
 
 namespace Grapesc\GrapeFluid\Module\Core;
 
-
-use Nette\Config\Configurator;
+use Nette\Configurator;
 
 class CoreModule extends \Grapesc\GrapeFluid\BaseModule
 {
