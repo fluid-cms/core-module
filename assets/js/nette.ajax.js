@@ -6,7 +6,7 @@
  * @copyright Copyright (c) 2012-2014 Vojtěch Dobeš
  * @license MIT
  *
- * @version 2.0.0
+ * @version 2.3.0
  */
 
 (function(window, $, undefined) {
@@ -280,19 +280,15 @@
 			else var analyze = settings.nette;
 			var e = analyze.e;
 
-			var validate = $.extend({
-				keys: true,
-				url: true,
-				form: true
-			}, settings.validate || (function () {
-					if (!analyze.el.is('[data-ajax-validate]')) return;
-					var attr = analyze.el.data('ajaxValidate');
-					if (attr === false) return {
-						keys: false,
-						url: false,
-						form: false
-					}; else if (typeof attr === 'object') return attr;
-				})() || {});
+			var validate = $.extend(this.defaults, settings.validate || (function () {
+				if (!analyze.el.is('[data-ajax-validate]')) return;
+				var attr = analyze.el.data('ajaxValidate');
+				if (attr === false) return {
+					keys: false,
+					url: false,
+					form: false
+				}; else if (typeof attr === 'object') return attr;
+			})() || {});
 
 			var passEvent = false;
 			if (analyze.el.attr('data-ajax-pass') !== undefined) {
@@ -319,8 +315,14 @@
 				if (analyze.isSubmit || analyze.isImage) {
 					analyze.form.get(0)["nette-submittedBy"] = analyze.el.get(0);
 				}
-				var ie = this.ie();
-				if (analyze.form.get(0).onsubmit && analyze.form.get(0).onsubmit((typeof ie !== 'undefined' && ie < 9) ? undefined : e) === false) {
+				var notValid;
+				if ((typeof Nette.version === 'undefined' || Nette.version == '2.3')) { // Nette 2.3 and older
+					var ie = this.ie();
+					notValid = (analyze.form.get(0).onsubmit && analyze.form.get(0).onsubmit((typeof ie !== 'undefined' && ie < 9) ? undefined : e) === false);
+				} else { // Nette 2.4 and up
+					notValid = ((analyze.form.get(0).onsubmit ? analyze.form.triggerHandler('submit') : Nette.validateForm(analyze.form.get(0))) === false)
+				}
+				if (notValid) {
 					e.stopImmediatePropagation();
 					e.preventDefault();
 					return false;
@@ -329,7 +331,15 @@
 
 			if (validate.url) {
 				// thx to @vrana
-				if (/:|^#/.test(analyze.form ? settings.url : analyze.el.attr('href'))) return false;
+				var urlToValidate = analyze.form ? settings.url : analyze.el.attr('href');
+				// Check if URL is absolute
+				if (/(?:^[a-z][a-z0-9+.-]*:|\/\/)/.test(urlToValidate)) {
+					// Parse absolute URL
+					var parsedUrl = new URL(urlToValidate);
+					if (/:|^#/.test(parsedUrl['pathname'] + parsedUrl['search'] + parsedUrl['hash'])) return false;
+				} else {
+					if (/:|^#/.test(urlToValidate)) return false;
+				}
 			}
 
 			if (!passEvent) {
@@ -340,6 +350,11 @@
 			return true;
 		}
 	}, {
+		defaults: {
+			keys: true,
+			url: true,
+			form: true
+		},
 		explicitNoAjax: false,
 		ie: function (undefined) { // http://james.padolsey.com/javascript/detect-ie-in-js-using-conditional-comments/
 			var v = 3;
@@ -397,6 +412,16 @@
 				if (typeof originalData !== 'string') {
 					for (var i in originalData) {
 						formData.append(i, originalData[i]);
+					}
+				}
+
+				// remove empty file inputs as these causes Safari 11 to stall
+				// https://stackoverflow.com/questions/49672992/ajax-request-fails-when-sending-formdata-including-empty-file-input-in-safari
+				if (formData.entries && navigator.userAgent.match(/version\/11(\.[0-9]*)? safari/i)) {
+					for (var pair of formData.entries()) {
+						if (pair[1] instanceof File && pair[1].name === '' && pair[1].size === 0) {
+							formData.delete(pair[0]);
+						}
 					}
 				}
 
@@ -465,7 +490,7 @@
 				$el.append(html);
 			} else if (!back && $el.is('[data-ajax-prepend]')) {
 				$el.prepend(html);
-			} else if ($el.html() != html) {
+			} else if ($el.html() != html || /<[^>]*script/.test(html)) {
 				$el.html(html);
 			}
 		},
@@ -549,3 +574,7 @@
 	});
 
 })(window, window.jQuery);
+
+$(function () {
+	$.nette.init();
+});

@@ -27,34 +27,14 @@ services:
 assets:
 	jquery:
 		limit:
-			- "*"
-			- ":Admin:.*"
+			- '*'
+			- ':Admin:.*'
 		js:
-			- 'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js'
-	fontawesome:
-		limit:
-			- "*"
-			- ":Admin:.*"
-		css:
-			- 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
+			- 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'
+
 	nette:
 		limit:
-			- "*"
-			- ":Admin:.*"
+			- '*'
+			- ':Admin:.*'
 		js:
-			- '%moduleDir%/CoreModule/assets/nette/nette.ajax.js'
-	moment:
-		limit:
-			- "*"
-			- ":Admin:.*"
-		js:
-			- 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js'
-			- 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/locale/cs.js'
-	main:
-		limit:
-			- "*"
-			- ":Admin:.*"
-		css:
-			- '%moduleDir%/CoreModule/assets/core.css'
-		js:
-			- '%moduleDir%/CoreModule/assets/core.js'
+			- '%moduleDir%/CoreModule/assets/js/nette.ajax.js'
