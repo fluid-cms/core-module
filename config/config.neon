@@ -1,4 +1,8 @@
 parameters:
+	project:
+		layout: '%moduleDir%/CoreModule/templates/@layout.latte'
+		flashes: '%moduleDir%/CoreModule/templates/@flashes.latte'
+
 	routing:
 		core:
 			- ['core/<presenter>[/<action>][/<id>]', 'Homepage:default']
