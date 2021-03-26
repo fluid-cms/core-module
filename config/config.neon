@@ -41,4 +41,5 @@ assets:
 			- '*'
 			- ':Admin:.*'
 		js:
+			- '%vendorDir%/nette/forms/src/assets/netteForms.min.js'
 			- '%moduleDir%/CoreModule/assets/js/nette.ajax.js'
