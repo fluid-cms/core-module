@@ -23,7 +23,7 @@ class MigrationCreateCommand extends Command
 	}
 
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$question = $this->getHelper('question');
 
@@ -38,6 +38,8 @@ class MigrationCreateCommand extends Command
 
 		$module = $question->ask($input, $output, $moduleQuestion);
 		$output->write("New migration file for " . ($module == "Project" ? "project" : "module '" . $module . "'") . " successfully created!");
+
+		return Command::SUCCESS;
 	}
 
 }

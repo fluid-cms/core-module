@@ -4,6 +4,7 @@ namespace Grapesc\GrapeFluid\CoreModule\Command;
 
 use Grapesc\GrapeFluid\Console\WithoutContainerCommand;
 use Nette\Utils\Finder;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -22,13 +23,15 @@ class CacheCleanCommand extends WithoutContainerCommand
 
 
 	/** {@inheritdoc} */
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->output             = $output;
 		$baseParametersRepository = $this->getFluidHelper()->getBaseParametersRepository();
 
 		$this->clean($baseParametersRepository->getParam('tempDir') . 'cache', true);
 		$this->clean($baseParametersRepository->getParam('tempDir'), true);
+
+		return Command::SUCCESS;
 	}
 
 

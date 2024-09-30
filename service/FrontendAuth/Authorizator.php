@@ -52,7 +52,7 @@ class Authorizator implements IAuthorizator
 	 * @param  string|null
 	 * @return bool
 	 */
-	function isAllowed($role, $resource, $privilege)
+	function isAllowed(?string $role, ?string $resource, ?string $privilege): bool
 	{
 		if ($this->mode == self::MODE_OPTIMISTIC) {
 			$roles = $this->aclModel->getTableSelection()
@@ -71,6 +71,8 @@ class Authorizator implements IAuthorizator
 				->where('privilege', $privilege)
 				->count();
 		}
+
+		return false;
 	}
 
 

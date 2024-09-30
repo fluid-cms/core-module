@@ -23,7 +23,7 @@ class AssetsDeployCommand extends Command
 	}
 
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		if ($input->getOption("u")) {
 			$output->writeln("<info>Deploying upload files...</info>");
@@ -33,6 +33,8 @@ class AssetsDeployCommand extends Command
 				$i++;
 			}
 			$output->writeln("<info>$i upload files successfully deployed</info>");
+
+			return Command::SUCCESS;
 		} else {
 			$output->writeln("<info>Deploying assets files...</info>");
 			$i = 0;
@@ -42,6 +44,8 @@ class AssetsDeployCommand extends Command
 			}
 			$output->writeln("<info>$i assets files successfully deployed</info>");
 			$output->writeln("<info>Assets were re-cached</info>");
+
+			return Command::SUCCESS;
 		}
 	}
 

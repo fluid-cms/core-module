@@ -24,7 +24,7 @@ class MigrationReinstallCommand extends Command
 	}
 
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 
 		$question = $this->getHelper('question');
@@ -42,6 +42,8 @@ class MigrationReinstallCommand extends Command
 		if ($question->ask($input, $output, $verificationQuestin)) {
 			$this->migrationService->up($output, true);
 		}
+
+		return Command::SUCCESS;
 	}
 
 }
