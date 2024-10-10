@@ -66,7 +66,7 @@ trait AclFormTrait
 	public function saveAcl()
 	{
 		$privilege = $this->getPrivilege();
-		$values    = $this->getForm()->getValues(true);
+		$values    = $this->getForm()->getValues('array');
 		if (array_key_exists('acl', $values)) {
 			foreach ($values['acl'] as $namespace => $namespaceValues) {
 				$this->aclModel->updateAcl($namespace, $this->resource, $privilege, $namespaceValues['roles']);
