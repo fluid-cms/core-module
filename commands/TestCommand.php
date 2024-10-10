@@ -24,7 +24,7 @@ class TestCommand extends Command
 	}
 
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		if ($input->getOption('param')) {
 			if (key_exists($input->getOption('param'), $this->baseParametersRepository->getAllParams())) {
@@ -37,6 +37,8 @@ class TestCommand extends Command
 				$output->writeln("<info> " . $key . ": " . $value . " </info>");
 			}
 		}
+
+		return Command::SUCCESS;
 	}
 
 }

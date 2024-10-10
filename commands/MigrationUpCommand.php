@@ -23,9 +23,11 @@ class MigrationUpCommand extends Command
 	}
 
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->migrationService->up($output, false, (bool) $input->getOption('force'));
+
+		return Command::SUCCESS;
 	}
 
 }

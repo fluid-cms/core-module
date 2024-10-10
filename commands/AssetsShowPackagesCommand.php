@@ -21,12 +21,14 @@ class AssetsShowPackagesCommand extends Command
 	}
 
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$output->writeln("<info>Assets (sorted, removed disabled):</info>");
 		foreach ($this->assets->getAssets() as $name => $asset) {
 			$output->writeln($name);
 		}
+
+		return Command::SUCCESS;
 	}
 
 }

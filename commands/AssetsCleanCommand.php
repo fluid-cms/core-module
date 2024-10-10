@@ -22,9 +22,11 @@ class AssetsCleanCommand extends Command
 
 
 	/** {@inheritdoc} */
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$this->assets->clean(null, $output);
+
+		return Command::SUCCESS;
 	}
 
 }

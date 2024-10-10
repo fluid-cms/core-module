@@ -6,6 +6,7 @@ use Grapesc\GrapeFluid\BaseParametersRepository;
 use Nette;
 use Nette\Application\BadRequestException;
 use Nette\Application\Request;
+use Nette\Application\Response;
 use Nette\Application\Responses\CallbackResponse;
 use Nette\Application\Responses\ForwardResponse;
 use Nette\Application\Responses\RedirectResponse;
@@ -34,7 +35,7 @@ class ErrorPresenter implements Nette\Application\IPresenter
 	 * @param Request $request
 	 * @return Nette\Application\IResponse
 	 */
-	public function run(Request $request)
+	public function run(Request $request): Response
 	{
 		$e = $request->getParameter('exception');
 
