@@ -24,7 +24,7 @@ class MigrationTruncateCommand extends Command
 	}
 
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		$question = $this->getHelper('question');
 		$token = Random::generate(10);
@@ -52,6 +52,8 @@ class MigrationTruncateCommand extends Command
 		if ($question->ask($input, $output, $verificationQuestin)) {
 			$this->migrationService->truncate($output, $tables);
 		}
+
+		return Command::SUCCESS;
 	}
 
 }

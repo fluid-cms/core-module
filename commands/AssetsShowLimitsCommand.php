@@ -29,7 +29,7 @@ class AssetsShowLimitsCommand extends Command
 	}
 
 
-	protected function execute(InputInterface $input, OutputInterface $output)
+	protected function execute(InputInterface $input, OutputInterface $output): int
 	{
 		if (($filter = $input->getOption("filter")) !== null) {
 			$output->writeln("Assets only for limit [$filter]:");
@@ -44,6 +44,8 @@ class AssetsShowLimitsCommand extends Command
 				$output->write("\n");
 			}
 		}
+
+		return Command::SUCCESS;
 	}
 
 
