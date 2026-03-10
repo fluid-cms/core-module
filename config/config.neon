@@ -28,7 +28,7 @@ services:
 	- Grapesc\GrapeFluid\Configuration\Crypt\OpenSSLCrypt(%secret%)
 
 
-assets:
+fluidAssets:
 	jquery:
 		limit:
 			- '*'
