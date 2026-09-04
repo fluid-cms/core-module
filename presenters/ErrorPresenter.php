@@ -11,6 +11,7 @@ use Nette\Application\Responses\CallbackResponse;
 use Nette\Application\Responses\ForwardResponse;
 use Nette\Application\Responses\RedirectResponse;
 use Nette\Http\IResponse;
+use Nette\Http\Url;
 use Tracy\ILogger;
 
 
@@ -41,9 +42,16 @@ class ErrorPresenter implements Nette\Application\IPresenter
 
 		if ($e instanceof BadRequestException) {
 			if ($e->getCode() == IResponse::S403_FORBIDDEN) {
+				$previousPresenter = $request->getParameter('previousPresenter');
+				$storedRequestKey = $previousPresenter && property_exists($previousPresenter, 'storedRequestKey') ? $previousPresenter->storedRequestKey : null;
 				$redirectUrl = $this->baseParametersRepository->getParam('redirect_url');
 				if ($redirectUrl) {
 					$this->baseParametersRepository->setParam('redirect_url', null);
+					if ($storedRequestKey) {
+						$url = new Url($redirectUrl);
+						$url->appendQuery(['backlink' => $storedRequestKey]);
+						$redirectUrl = $url->getAbsoluteUrl();
+					}
 					return new RedirectResponse($redirectUrl, IResponse::S302_FOUND);
 				}
 			}
